@@ -120,7 +120,11 @@ class FastCounterPreshed(object):
 
     def get(self, item, default=None):
         """Return the item frequency of `item` (or `default` if item not present)."""
-        return self.hash2cnt.get(chash(item), default)
+        count = self.hash2cnt[chash(item)]
+        if count == 0:
+            return default
+        else:
+            return count
 
     def merge(self, other):
         """
